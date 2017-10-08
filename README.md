@@ -2,7 +2,7 @@
 
 In progressing projects.
 
-Features:
+Features: Teaching cooking recipe by utilzing json object from remote network
 
 - Retrofit to load data
 
@@ -10,8 +10,10 @@ Features:
 
 - Exoplayer to play video/ media
 
--fragments
+- Fragments
 
--widgets
+- Widgets
 
--espresso testing
+- Espresso testing
+
+[![Watch the video]](https://www.youtube.com/watch?v=h3_n04NYJG4)
