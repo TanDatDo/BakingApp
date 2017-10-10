@@ -1,4 +1,4 @@
-package com.dan.bakingapp.Adapter;
+package com.dan.bakingapp.UI;
 
 import android.content.Context;
 import android.net.Uri;
@@ -37,7 +37,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.RecyclerViewHo
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        int layoutIdForListItem = R.layout.recipe_cards;
+        int layoutIdForListItem = R.layout.cards_recipe;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(layoutIdForListItem, parent, false);

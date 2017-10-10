@@ -3,7 +3,7 @@
     package="com.dan.bakingapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -15,12 +15,33 @@
         <activity android:name=".UI.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.DetailRecipeActivity" />
-        <activity android:name=".UI.DetailStepActivity"></activity>
+
+        <activity android:name=".UI.DetailRecipe.RecipeActivity" />
+
+        <activity android:name=".UI.DetailRecipe.DetailStep.StepActivity" />
+
+        <receiver android:name=".widget.IngredientWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE2" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/ingredient_widget_info" />
+        </receiver>
+
+        <service android:name=".widget.IngredientService" />
+
+        <service
+            android:name=".widget.GridWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+
+        <activity android:name=".UI.DetailRecipe.DetailIngredients.IngredientActivity"></activity>
     </application>
 
 </manifest>

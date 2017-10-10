@@ -1,4 +1,4 @@
-package com.dan.bakingapp.Adapter;
+package com.dan.bakingapp.UI.DetailRecipe;
 
 import android.content.Context;
 import android.net.Uri;
@@ -23,12 +23,12 @@ import butterknife.ButterKnife;
  * Created by Dat T Do on 9/28/2017.
  */
 
-public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.RecyclerViewHolder> {
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecyclerViewHolder> {
     private List<Step> mStepList;
     private LayoutInflater mInflater;
     private Context mContext;
 
-    public DetailAdapter(Context context, ArrayList<Step> stepList) {
+    public RecipeAdapter(Context context, ArrayList<Step> stepList) {
         this.mContext = context;
         this.mStepList = stepList;
     }
@@ -37,18 +37,18 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.RecyclerVi
 
 
     @Override
-    public DetailAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecipeAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        int layoutIdForListItem = R.layout.step_cards;
+        int layoutIdForListItem = R.layout.cards_step;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(layoutIdForListItem, parent,  false);
-        DetailAdapter.RecyclerViewHolder viewHolder = new DetailAdapter.RecyclerViewHolder(view);
+        RecipeAdapter.RecyclerViewHolder viewHolder = new RecipeAdapter.RecyclerViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(DetailAdapter.RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(RecipeAdapter.RecyclerViewHolder holder, int position) {
         holder.textRecyclerView.setText(mStepList.get(position).getShortDescription());
         String imageUrl=mStepList.get(position).getThumbnailURL();
 
