@@ -73,9 +73,6 @@ public class StepFragment extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (container != null) {
-            container.removeAllViews();
-        }
         View rootView = inflater.inflate(R.layout.fragment_step, container, false);
         ButterKnife.bind(this, rootView);
         //from exo video
@@ -128,11 +125,22 @@ public class StepFragment extends Fragment {
                     if (mExoPlayer != null) {
                         releasePlayer();
                     }
-                    Intent intent = new Intent(getActivity(), StepActivity.class);
-                    intent.putExtra(MainActivity.IntentKeyWord.SELECTED_STEP, nextStep);
-                    intent.putExtra(MainActivity.IntentKeyWord.SELECTED_RECIPE, mSelectedRecipe);
-                    getActivity().finish();
-                    startActivity(intent);
+                    final boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+                    if (!tabletSize) {
+                        Intent intent = new Intent(getActivity(), StepActivity.class);
+                        intent.putExtra(MainActivity.IntentKeyWord.SELECTED_STEP, nextStep);
+                        intent.putExtra(MainActivity.IntentKeyWord.SELECTED_RECIPE, mSelectedRecipe);
+                        getActivity().finish();
+                        startActivity(intent);
+                    } else {
+                        Bundle nextStepBundle = new Bundle();
+                        nextStepBundle.putParcelable(MainActivity.IntentKeyWord.SELECTED_STEP, nextStep);
+                        nextStepBundle.putParcelable(MainActivity.IntentKeyWord.SELECTED_RECIPE, mSelectedRecipe);
+                        StepFragment nextStepFragment = new StepFragment();
+                        nextStepFragment.setArguments(nextStepBundle);
+                        getActivity().getFragmentManager().beginTransaction()
+                                .replace(R.id.step_fragment, nextStepFragment).commitNow();
+                    }
                 }
             }
         });
@@ -146,11 +154,22 @@ public class StepFragment extends Fragment {
                     if (mExoPlayer != null) {
                         releasePlayer();
                     }
-                    Intent intent = new Intent(getActivity(), StepActivity.class);
-                    intent.putExtra(MainActivity.IntentKeyWord.SELECTED_STEP, previousStep);
-                    intent.putExtra(MainActivity.IntentKeyWord.SELECTED_RECIPE, mSelectedRecipe);
-                    getActivity().finish();
-                    startActivity(intent);
+                    final boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+                    if (tabletSize) {
+                        Intent intent = new Intent(getActivity(), StepActivity.class);
+                        intent.putExtra(MainActivity.IntentKeyWord.SELECTED_STEP, previousStep);
+                        intent.putExtra(MainActivity.IntentKeyWord.SELECTED_RECIPE, mSelectedRecipe);
+                        getActivity().finish();
+                        startActivity(intent);
+                    } else {
+                        Bundle previousStepBundle = new Bundle();
+                        previousStepBundle.putParcelable(MainActivity.IntentKeyWord.SELECTED_STEP, previousStep);
+                        previousStepBundle.putParcelable(MainActivity.IntentKeyWord.SELECTED_RECIPE, mSelectedRecipe);
+                        StepFragment previousStepFragment = new StepFragment();
+                        previousStepFragment.setArguments(previousStepBundle);
+                        getActivity().getFragmentManager().beginTransaction()
+                                .replace(R.id.step_fragment, previousStepFragment).commitNow();
+                    }
                 }
             }
         });

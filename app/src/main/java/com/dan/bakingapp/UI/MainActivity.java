@@ -17,8 +17,11 @@ import com.dan.bakingapp.R;
 
 public class MainActivity extends FragmentActivity {
 
+
+    MainFragment mainFragment;
     @Nullable
     private SimpleIdlingResource mIdlingResource;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +29,6 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         // Get the IdlingResource instance
         getIdlingResource();
-        // Create the main fragment and add it to the activity
-        // using a fragment transaction.
-        MainFragment fragment = new MainFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_fragment, fragment)
-                .commit();
-
     }
 
     /**

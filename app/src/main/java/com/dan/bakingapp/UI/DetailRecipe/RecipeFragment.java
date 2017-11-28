@@ -19,7 +19,9 @@ import com.dan.bakingapp.Models.Recipe;
 import com.dan.bakingapp.Models.Step;
 import com.dan.bakingapp.R;
 import com.dan.bakingapp.UI.DetailRecipe.DetailIngredients.IngredientActivity;
+import com.dan.bakingapp.UI.DetailRecipe.DetailIngredients.IngredientFragment;
 import com.dan.bakingapp.UI.DetailRecipe.DetailStep.StepActivity;
+import com.dan.bakingapp.UI.DetailRecipe.DetailStep.StepFragment;
 import com.dan.bakingapp.UI.MainActivity;
 import com.dan.bakingapp.UI.RecyclerClickListener;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -83,16 +85,29 @@ public class RecipeFragment extends Fragment implements ExoPlayer.EventListener 
     @Override
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        final boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
         mRecipeRecyclerView.addOnItemTouchListener(new RecyclerClickListener(getActivity(), new RecyclerClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Step currentStep = mStepList.get(position);
                 int selectedStepIndex= position;
+                if (!tabletSize) {
                 Intent intent = new Intent(getActivity(), StepActivity.class);
                 intent.putExtra(MainActivity.IntentKeyWord.SELECTED_STEP, currentStep);
                 intent.putExtra(MainActivity.IntentKeyWord.SELECTED_RECIPE, mRecipe);
                 intent.putExtra(MainActivity.IntentKeyWord.SELECTED_STEP_INDEX, selectedStepIndex);
-                startActivity(intent);
+                    startActivity(intent);
+                } else {
+                    StepFragment stepFragment = new StepFragment();
+                    Bundle stepBundle = new Bundle();
+                    stepBundle.putInt(MainActivity.IntentKeyWord.SELECTED_STEP_INDEX, selectedStepIndex);
+                    stepBundle.putParcelable(MainActivity.IntentKeyWord.SELECTED_STEP, currentStep);
+                    stepBundle.putParcelable(MainActivity.IntentKeyWord.SELECTED_RECIPE, mRecipe);
+                    stepFragment.setArguments(stepBundle);
+                    getActivity().getFragmentManager().beginTransaction()
+                            .replace(R.id.step_fragment, stepFragment).commitNow();
+
+                }
             }
         }));
 
@@ -100,9 +115,18 @@ public class RecipeFragment extends Fragment implements ExoPlayer.EventListener 
             @Override
             public void onClick(View view) {
                 List<Ingredient> currentIngredients = mRecipe.getIngredients();
+                if (!tabletSize) {
                 Intent intent = new Intent(getActivity(), IngredientActivity.class);
                 intent.putExtra(MainActivity.IntentKeyWord.SELECTED_RECIPE, mRecipe);
-                startActivity(intent);
+                    startActivity(intent);
+                } else {
+                    IngredientFragment ingredientFragment = new IngredientFragment();
+                    Bundle ingredientBundle = new Bundle();
+                    ingredientBundle.putParcelable(MainActivity.IntentKeyWord.SELECTED_RECIPE, mRecipe);
+                    ingredientFragment.setArguments(ingredientBundle);
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.step_fragment, ingredientFragment).commitNow();
+                }
             }
         });
     }

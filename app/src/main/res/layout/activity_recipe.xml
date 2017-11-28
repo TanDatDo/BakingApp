@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/detail_recipe_linear_layout"
+    android:id="@+id/recipe_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/activity_padding">
 
-    <fragment
+    <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/detail_recipe_fragment"
-        class="com.dan.bakingapp.UI.DetailRecipe.RecipeFragment"
+        android:id="@+id/fragment_recipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

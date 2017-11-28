@@ -44,9 +44,6 @@ public class IngredientFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (container != null) {
-            container.removeAllViews();
-        }
         View rootView = inflater.inflate(R.layout.fragment_ingredient, container, false);
         ButterKnife.bind(this, rootView);
 
